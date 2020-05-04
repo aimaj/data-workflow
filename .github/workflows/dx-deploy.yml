@@ -1,11 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Validate
+name: Deploy
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  pull_request:
+  push:
     branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -24,12 +24,17 @@ jobs:
       shell: bash
       run: 'echo ${{ secrets.TARGET_SFDXURL}} > ./SFDX_URL_STORE.txt'
 
-    - name: 'Authenticate against target org'
+    - name: 'Authenticate SFDX CLI'
       uses: forcedotcom/salesforcedx-actions@master
       with:
         args: 'force:auth:sfdxurl:store --sfdxurlfile=./SFDX_URL_STORE.txt --setalias=target --setdefaultdevhubusername'
         
-    - name: 'Validate source'
+    - name: 'Install bourne'
       uses: forcedotcom/salesforcedx-actions@master
       with:
-       args: 'force:source:deploy -u target --checkonly -p force-app'
+       args: 'echo y | sfdx plugins:install json-bourne-sfdx'
+
+    - name: 'Deploy source'
+      uses: forcedotcom/salesforcedx-actions@master
+      with:
+       args: 'force:source:deploy -u target -p force-app'
