@@ -31,4 +31,4 @@ jobs:
     - name: 'Push source'
       uses: forcedotcom/salesforcedx-actions@master
       with:
-       args: 'force:source:deploy -u target --checkonly -p "./"'
+       args: 'force:source:deploy -u target --checkonly -p force-app'
