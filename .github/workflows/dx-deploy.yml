@@ -30,9 +30,8 @@ jobs:
         args: 'force:auth:sfdxurl:store --sfdxurlfile=./SFDX_URL_STORE.txt --setalias=target --setdefaultdevhubusername'
         
     - name: 'Install bourne'
-      uses: forcedotcom/salesforcedx-actions@master
-      with:
-       args: 'echo y | sfdx plugins:install json-bourne-sfdx'
+      run:
+       "echo y | sfdx plugins:install json-bourne-sfdx"
 
     - name: 'Deploy source'
       uses: forcedotcom/salesforcedx-actions@master
