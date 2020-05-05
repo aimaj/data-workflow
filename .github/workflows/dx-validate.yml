@@ -20,16 +20,20 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    # Install Salesforce CLI
+    - name: Install Salesforce CLI
+      run: |
+          wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+          mkdir sfdx-cli
+          tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
+          ./sfdx-cli/install
+
     - name: 'Retrieve secret'
       shell: bash
       run: 'echo ${{ secrets.TARGET_SFDXURL}} > ./SFDX_URL_STORE.txt'
 
-    - name: 'Authenticate against target org'
-      uses: forcedotcom/salesforcedx-actions@master
-      with:
-        args: 'force:auth:sfdxurl:store --sfdxurlfile=./SFDX_URL_STORE.txt --setalias=target --setdefaultdevhubusername'
-        
+    - name: 'Authenticate SFDX CLI'
+      run: 'sfdx force:auth:sfdxurl:store --sfdxurlfile=./SFDX_URL_STORE.txt --setalias=target --setdefaultdevhubusername'
+
     - name: 'Validate source'
-      uses: forcedotcom/salesforcedx-actions@master
-      with:
-       args: 'force:source:deploy -u target --checkonly -p force-app'
+      run: 'sfdx force:source:deploy -u target --checkonly -p force-app'
