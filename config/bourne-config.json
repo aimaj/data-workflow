@@ -1,0 +1,20 @@
+{
+    "pollTimeout": 30,
+    "pollBatchSize": 150,
+    "maxPollCount": 60,
+    "payloadLength": 2999800,
+    "importRetries": 3,
+    "useManagedPackage": true,
+    "allObjects": [
+        "User"
+    ],
+    "objects": {
+        "User": {
+            "query": "SELECT Name, Username, UserPermissionsKnowledgeUser FROM User",
+            "externalid": "Username",
+            "directory": "users",
+            "cleanupFields": [],
+            "hasRecordTypes": false
+        }
+    }
+}
