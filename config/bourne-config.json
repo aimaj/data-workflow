@@ -6,13 +6,13 @@
     "importRetries": 3,
     "useManagedPackage": true,
     "allObjects": [
-        "User"
+        "Configuration_Page__c"
     ],
     "objects": {
-        "User": {
-            "query": "SELECT Name, Username, UserPermissionsKnowledgeUser FROM User",
-            "externalid": "Username",
-            "directory": "users",
+        "Configuration_Page__c": {
+            "query": "SELECT Name, Migration_Id__c, Label_1__c, Value_1__c FROM Configuration_Page__c",
+            "externalid": "Migration_Id__c",
+            "directory": "configurationPages",
             "cleanupFields": [],
             "hasRecordTypes": false
         }
